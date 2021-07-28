@@ -14,3 +14,6 @@ permutation_testing = ["loom", "maybe-async/is_sync"]
 tokio = { version = "1.9", features = ["sync"], optional = true }
 loom = { version = "0.5.1", optional = true }
 maybe-async = "0.2.6"
+
+[dev-dependencies]
+tokio = { version = "1.9", features = ["rt", "macros"] }
