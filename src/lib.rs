@@ -8,3 +8,4 @@ pub extern crate tokio;
 pub extern crate loom;
 
 pub mod sync;
+pub mod atomic;
