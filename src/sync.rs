@@ -1,5 +1,15 @@
+#[cfg(not(features = "permutation_testing"))]
+mod state_storage {
+    pub use std::sync::Arc;
+}
+#[cfg(features = "permutation_testing")]
+mod state_storage {
+    pub use loom::sync::Arc;
+}
+pub use state_storage::*;
+
 #[cfg(not( any(feature = "async_tokio", features = "permutation_testing") ))]
-mod inline {
+mod state_sync {
     pub use std::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard};
 
     pub fn read<T: ?Sized>(rwlock: &RwLock<T>) -> RwLockReadGuard<'_, T> {
@@ -26,7 +36,7 @@ mod inline {
 }
 
 #[cfg(feature = "async_tokio")]
-mod inline {
+mod state_sync {
     pub use tokio::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard};
 
     pub async fn read<T: ?Sized>(rwlock: &RwLock<T>) -> RwLockReadGuard<'_, T> {
@@ -54,7 +64,7 @@ mod inline {
 
 #[cfg(feature = "permutation_testing")]
 #[macro_use]
-mod inline {
+mod state_sync {
     pub use loom::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard};
 
     pub fn read<T: ?Sized>(rwlock: &RwLock<T>) -> RwLockReadGuard<'_, T> {
@@ -78,4 +88,4 @@ mod inline {
     }
 }
 
-pub use inline::*;
+pub use state_sync::*;
