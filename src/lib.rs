@@ -11,7 +11,19 @@ extern crate maybe_async;
 /// `maybe_async` automatically removes `async`-related keywords if feature "async_tokio"
 /// is not enabled.
 ///
-/// `test` can be used to write tests.
+/// `test` needs be used with `run_test` to write tests:
+///
+/// ```no_run
+/// #[concurrency_toolkit::test(
+///     feature = "is_sync",
+///     async(not(feature = "is_sync"), tokio::test)
+/// )]
+/// async fn test() {
+///     crate::run_test!({
+///         ...
+///     });
+/// }
+/// ```
 pub use maybe_async::{maybe_async, test};
 
 #[cfg(feature = "async_tokio")]
