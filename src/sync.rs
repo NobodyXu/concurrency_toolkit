@@ -24,7 +24,7 @@ mod state_sync {
     #[macro_export]
     macro_rules! read {
         ( $lock:expr ) => {
-            $crate::rw_lock::read($lock)
+            $crate::sync::read($lock)
         };
     }
 
@@ -32,7 +32,7 @@ mod state_sync {
     #[macro_export]
     macro_rules! write {
         ( $lock:expr ) => {
-            $crate::rw_lock::write($lock)
+            $crate::sync::write($lock)
         };
     }
 }
@@ -54,7 +54,7 @@ mod state_sync {
     #[macro_export]
     macro_rules! read {
         ( $lock:expr ) => {
-            $crate::rw_lock::read($lock).await
+            $crate::sync::read($lock).await
         };
     }
 
@@ -62,7 +62,7 @@ mod state_sync {
     #[macro_export]
     macro_rules! write {
         ( $lock:expr ) => {
-            $crate::rw_lock::write($lock).await
+            $crate::sync::write($lock).await
         };
     }
 }
