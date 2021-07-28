@@ -8,9 +8,11 @@ compile_error!("At most one feature flag can to be enabled");
 compile_error!("feature async cannot be used with feature permutation_testing");
 
 extern crate maybe_async;
-/// This ttribute macro automatically removes `async`-related keywords if feature "async_tokio"
+/// `maybe_async` automatically removes `async`-related keywords if feature "async_tokio"
 /// is not enabled.
-pub use maybe_async::maybe_async;
+///
+/// `test` can be used to write tests.
+pub use maybe_async::{maybe_async, test};
 
 #[cfg(feature = "async_tokio")]
 pub extern crate tokio;
