@@ -5,6 +5,14 @@ version = "0.1.0"
 edition = "2018"
 resolver = "2"
 
+license-file = "LICENSE"
+description = "Enable switching between std::sync, tokio::sync and loom::sync"
+repository = "https://github.com/NobodyXu/concurrency_toolkit"
+
+keywords = ["concurrency", "loom", "async", "tokio"]
+categories = ["concurrency", "development-tools::build-utils", "asynchronous"]
+
+
 [features]
 default = ["maybe-async/is_sync"]
 async_tokio = ["tokio"]
