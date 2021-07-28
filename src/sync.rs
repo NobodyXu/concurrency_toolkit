@@ -10,7 +10,7 @@ pub use state_storage::*;
 
 #[cfg(feature = "default")]
 mod state_sync {
-    pub use std::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockError};
+    pub use std::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockResult};
 
     pub fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         rwlock.read()
@@ -39,8 +39,9 @@ mod state_sync {
 
 #[cfg(feature = "async_tokio")]
 mod state_sync {
-    pub use tokio::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, TryLockError};
+    pub use tokio::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard};
     pub type LockResult<T> = Result<T, ()>;
+    pub type TryLockResult<T> = Result<T, tokio::sync::TryLockError>;
 
     pub async fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         Ok(rwlock.read().await)
@@ -69,7 +70,7 @@ mod state_sync {
 
 #[cfg(feature = "permutation_testing")]
 mod state_sync {
-    pub use loom::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockError};
+    pub use loom::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockResult};
 
     pub fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         rwlock.read()
