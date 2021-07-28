@@ -10,7 +10,8 @@ compile_error!("feature async cannot be used with feature permutation_testing");
 extern crate maybe_async;
 /// `maybe_async` automatically removes `async`-related keywords if feature "async_tokio"
 /// is not enabled.
-///
+pub use maybe_async::maybe_async;
+
 /// `test` needs be used with `run_test` to write tests:
 ///
 /// ```no_run
@@ -24,7 +25,7 @@ extern crate maybe_async;
 ///     });
 /// }
 /// ```
-pub use maybe_async::{maybe_async, test};
+pub use maybe_async::test;
 
 #[cfg(feature = "async_tokio")]
 pub extern crate tokio;
