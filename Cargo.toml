@@ -1,0 +1,13 @@
+[package]
+name = "concurrency_toolkit"
+authors = ["Jiahao XU <Jiahao_XU@outlook.com>"]
+version = "0.1.0"
+edition = "2018"
+
+[features]
+async_tokio = ["tokio"]
+permutation_testing = ["loom"]
+
+[dependencies]
+tokio = { version = "1.9", features = ["sync"], optional = true }
+loom = { version = "0.5.1", optional = true }
