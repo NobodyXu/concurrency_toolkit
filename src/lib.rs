@@ -1,3 +1,6 @@
+#[cfg(not( any(feature = "default", feature = "async_tokio", feature = "permutation_testing") ))]
+compile_error!("At least one feature flag needs to be enabled");
+
 #[cfg(all(feature = "async_tokio", feature = "permutation_testing"))]
 compile_error!("feature async cannot be used with feature permutation_testing");
 
