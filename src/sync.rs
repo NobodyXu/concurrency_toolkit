@@ -12,11 +12,11 @@ pub use state_storage::*;
 mod state_sync {
     pub use std::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockResult};
 
-    pub fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
+    pub fn read<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         rwlock.read()
     }
 
-    pub fn write<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
+    pub fn write<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
         rwlock.write()
     }
 
@@ -43,11 +43,11 @@ mod state_sync {
     pub type LockResult<T> = Result<T, ()>;
     pub type TryLockResult<T> = Result<T, tokio::sync::TryLockError>;
 
-    pub async fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
+    pub async fn read<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         Ok(rwlock.read().await)
     }
 
-    pub async fn write<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
+    pub async fn write<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
         Ok(rwlock.write().await)
     }
 
@@ -72,11 +72,11 @@ mod state_sync {
 mod state_sync {
     pub use loom::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockResult};
 
-    pub fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
+    pub fn read<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         rwlock.read()
     }
 
-    pub fn write<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
+    pub fn write<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
         rwlock.write()
     }
 
