@@ -20,6 +20,7 @@ mod state_sync {
         rwlock.write()
     }
 
+    /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
     macro_rules! read {
         ( $lock:expr ) => {
@@ -27,6 +28,7 @@ mod state_sync {
         };
     }
 
+    /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
     macro_rules! write {
         ( $lock:expr ) => {
@@ -48,6 +50,7 @@ mod state_sync {
         Ok(rwlock.write())
     }
 
+    /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
     macro_rules! read {
         ( $lock:expr ) => {
@@ -55,6 +58,7 @@ mod state_sync {
         };
     }
 
+    /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
     macro_rules! write {
         ( $lock:expr ) => {
@@ -76,12 +80,14 @@ mod state_sync {
         rwlock.write()
     }
 
+    /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     macro_rules! read {
         ( $lock:expr ) => {
             $crate::rw_lock::read($lock)
         };
     }
 
+    /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     macro_rules! write {
         ( $lock:expr ) => {
             $crate::rw_lock::write($lock)

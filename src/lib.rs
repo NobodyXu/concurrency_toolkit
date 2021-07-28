@@ -1,6 +1,11 @@
 #[cfg(all(feature = "async_tokio", feature = "permutation_testing"))]
 compile_error!("feature async cannot be used with feature permutation_testing");
 
+extern crate maybe_async;
+/// This ttribute macro automatically removes `async`-related keywords if feature "async_tokio"
+/// is not enabled.
+pub use maybe_async::maybe_async;
+
 #[cfg(feature = "async_tokio")]
 pub extern crate tokio;
 
