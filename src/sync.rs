@@ -8,7 +8,7 @@ mod state_storage {
 }
 pub use state_storage::*;
 
-#[cfg(not( any(feature = "async_tokio", features = "permutation_testing") ))]
+#[cfg(feature = "default")]
 mod state_sync {
     pub use std::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockError};
 
