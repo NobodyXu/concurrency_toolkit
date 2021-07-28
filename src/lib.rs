@@ -22,3 +22,51 @@ pub extern crate loom;
 
 pub mod sync;
 pub mod atomic;
+
+#[cfg(not(feature = "permutation_testing"))]
+mod inline {
+    /// run_test needs to be called inside test, like this
+    ///
+    /// ```no_run
+    /// #[concurrency_toolkit::test(
+    ///     feature = "is_sync",
+    ///     async(not(feature = "is_sync"), tokio::test)
+    /// )]
+    /// async fn test() {
+    ///     crate::run_test!({
+    ///         ...
+    ///     });
+    /// }
+    /// ```
+    #[macro_export]
+    macro_rules! run_test {
+        ( { $( $tt:tt )* } ) => {
+            $( $tt )*
+        };
+    }
+}
+
+#[cfg(feature = "permutation_testing")]
+mod inline {
+    /// run_test needs to be called inside test, like this
+    ///
+    /// ```no_run
+    /// #[concurrency_toolkit::test(
+    ///     feature = "is_sync",
+    ///     async(not(feature = "is_sync"), tokio::test)
+    /// )]
+    /// async fn test() {
+    ///     crate::run_test!({
+    ///         ...
+    ///     });
+    /// }
+    /// ```
+    #[macro_export]
+    macro_rules! run_test {
+        ( { $( $tt:tt )* } ) => {
+            loom::model(
+                || { $( $tt )* }
+            )
+        };
+    }
+}
