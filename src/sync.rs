@@ -68,7 +68,6 @@ mod state_sync {
 }
 
 #[cfg(feature = "permutation_testing")]
-#[macro_use]
 mod state_sync {
     pub use loom::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockError};
 
@@ -81,6 +80,7 @@ mod state_sync {
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
+    #[macro_export]
     macro_rules! read {
         ( $lock:expr ) => {
             $crate::rw_lock::read($lock)
@@ -88,6 +88,7 @@ mod state_sync {
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
+    #[macro_export]
     macro_rules! write {
         ( $lock:expr ) => {
             $crate::rw_lock::write($lock)
