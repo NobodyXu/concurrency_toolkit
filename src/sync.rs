@@ -12,27 +12,27 @@ pub use state_storage::*;
 mod state_sync {
     pub use std::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockResult};
 
-    pub fn read<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
+    pub fn obtain_read_lock<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         rwlock.read()
     }
 
-    pub fn write<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
+    pub fn obtain_write_lock<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
         rwlock.write()
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
-    macro_rules! read {
+    macro_rules! obtain_read_lock {
         ( $lock:expr ) => {
-            $crate::sync::read($lock)
+            $crate::sync::obtain_read_lock($lock)
         };
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
-    macro_rules! write {
+    macro_rules! obtain_write_lock {
         ( $lock:expr ) => {
-            $crate::sync::write($lock)
+            $crate::sync::obtain_write_lock($lock)
         };
     }
 }
@@ -43,27 +43,27 @@ mod state_sync {
     pub type LockResult<T> = Result<T, ()>;
     pub type TryLockResult<T> = Result<T, tokio::sync::TryLockError>;
 
-    pub async fn read<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
+    pub async fn obtain_read_lock<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         Ok(rwlock.read().await)
     }
 
-    pub async fn write<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
+    pub async fn obtain_write_lock<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
         Ok(rwlock.write().await)
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
-    macro_rules! read {
+    macro_rules! obtain_read_lock {
         ( $lock:expr ) => {
-            $crate::sync::read($lock).await
+            $crate::sync::obtain_read_lock($lock).await
         };
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
-    macro_rules! write {
+    macro_rules! obtain_write_lock {
         ( $lock:expr ) => {
-            $crate::sync::write($lock).await
+            $crate::sync::obtain_write_lock($lock).await
         };
     }
 }
@@ -72,27 +72,27 @@ mod state_sync {
 mod state_sync {
     pub use loom::sync::{RwLock, RwLockReadGuard, RwLockWriteGuard, LockResult, TryLockResult};
 
-    pub fn read<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
+    pub fn obtain_read_lock<T>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
         rwlock.read()
     }
 
-    pub fn write<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
+    pub fn obtain_write_lock<T>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
         rwlock.write()
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
-    macro_rules! read {
+    macro_rules! obtain_read_lock {
         ( $lock:expr ) => {
-            $crate::sync::read($lock)
+            $crate::sync::obtain_read_lock($lock)
         };
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
     #[macro_export]
-    macro_rules! write {
+    macro_rules! obtain_write_lock {
         ( $lock:expr ) => {
-            $crate::sync::write($lock)
+            $crate::sync::obtain_write_lock($lock)
         };
     }
 }
@@ -102,7 +102,7 @@ pub use state_sync::*;
 #[cfg(test)]
 mod tests {
     use super::RwLock;
-    use crate::{maybe_async, read, write};
+    use crate::{obtain_read_lock, obtain_write_lock};
 
     #[crate::test(
         feature = "is_sync",
@@ -112,10 +112,10 @@ mod tests {
         crate::run_test!({
             let rwlock = RwLock::new(());
             {
-                let _guard = read!(&rwlock).unwrap();
+                let _guard = obtain_read_lock!(&rwlock).unwrap();
             }
             {
-                let _guard = write!(&rwlock).unwrap();
+                let _guard = obtain_write_lock!(&rwlock).unwrap();
             }
         });
     }
