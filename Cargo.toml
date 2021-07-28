@@ -3,6 +3,7 @@ name = "concurrency_toolkit"
 authors = ["Jiahao XU <Jiahao_XU@outlook.com>"]
 version = "0.1.0"
 edition = "2018"
+resolver = "2"
 
 [features]
 default = ["maybe-async/is_sync"]
