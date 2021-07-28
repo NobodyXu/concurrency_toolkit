@@ -43,11 +43,11 @@ mod state_sync {
     pub type LockResult<T> = Result<T, ()>;
 
     pub async fn read<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockReadGuard<'_, T>> {
-        Ok(rwlock.read())
+        Ok(rwlock.read().await)
     }
 
     pub async fn write<T: ?Sized>(rwlock: &RwLock<T>) -> LockResult<RwLockWriteGuard<'_, T>> {
-        Ok(rwlock.write())
+        Ok(rwlock.write().await)
     }
 
     /// Must use [`maybe_async`](/maybe_async) keyword when using this macro
