@@ -77,7 +77,7 @@ mod inline {
     #[macro_export]
     macro_rules! run_test {
         ( { $( $tt:tt )* } ) => {
-            loom::model(
+            $crate::loom::model(
                 || { $( $tt )* }
             )
         };
