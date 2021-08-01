@@ -1,6 +1,6 @@
 use proc_macro::TokenStream;
 use syn::{parse_macro_input, ItemFn};
-use quote::quote;
+use quote::{quote, ToTokens};
 
 #[proc_macro_attribute]
 pub fn test(_attr: TokenStream, item: TokenStream) -> TokenStream {
@@ -10,31 +10,25 @@ pub fn test(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let vis = input.vis;
     let sig = input.sig;
-    let block = &*input.block;
+    let mut block = input.block.to_token_stream();
 
-    let expanded = {
-        #[cfg(feature = "default")] {
-            quote! {
-                #[test]
-                # vis # sig # block
+    #[cfg(feature = "permutation_testing")]
+    {
+        block = quote! {
+            {
+                concurrency_toolkit::loom::model(
+                    || # block
+                );
             }
-        }
-        #[cfg(feature = "async_tokio")] {
-            quote! {
-                #[concurrency_toolkit::tokio::test]
-                # vis async # sig # block
-            }
-        }
-        #[cfg(feature = "permutation_testing")] {
-            quote! {
-                #[test]
-                # vis # sig {
-                    concurrency_toolkit::loom::model(
-                        || # block
-                    );
-                }
-            }
-        }
+        };
+    }
+
+    let expanded = quote! {
+        #[concurrency_toolkit::maybe_async::test(
+            feature = "is_sync",
+            async(feature = "async_tokio", concurrency_toolkit::tokio::test),
+        )]
+        # vis async # sig # block
     };
 
     // Hand the output tokens back to the compiler

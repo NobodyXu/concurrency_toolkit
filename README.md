@@ -1,6 +1,6 @@
 # concurrency_toolkit
 
-Enable switching between std::sync, tokio::sync and loom::sync
+Easy switching between std::sync, tokio::sync and loom::sync
 
 ## Usage
 
@@ -59,8 +59,7 @@ fn test() {
 
 It will automatically start async runtime or call `loom::model` for you if required.
 
-However, unlike `maybe_async::maybe_async`, this proc macro cannot automatically removes
-`async`-related keywords for you, so you need to use wrappers provided by this crate.
+However, unlike `maybe_async::maybe_async`, this proc macro requires the function to not be declared as `async` due to implementation detail (`syn` doesn't provides an easy way to parse `async function), but it still can remove `async`-related keywords just like `maybe_async::maybe_async`.
 
 ## Feature
 
