@@ -1,12 +1,3 @@
-#[cfg(not( any(feature = "default", feature = "async_tokio", feature = "permutation_testing") ))]
-compile_error!("At least one feature flag needs to be enabled");
-
-#[cfg(all( feature = "default", any(feature = "async_tokio", feature = "permutation_testing") ))]
-compile_error!("At most one feature flag can to be enabled");
-
-#[cfg(all(feature = "async_tokio", feature = "permutation_testing"))]
-compile_error!("feature async cannot be used with feature permutation_testing");
-
 use proc_macro::TokenStream;
 use syn::{parse_macro_input, ItemFn};
 use quote::quote;
