@@ -24,7 +24,7 @@ permutation_testing = ["loom", "maybe-async/is_sync", "proc_macro_test/permutati
 tokio = { version = "1.9", features = ["sync"], optional = true }
 loom = { version = "0.5.1", optional = true }
 maybe-async = "0.2.6"
-proc_macro_test = { path = "proc_macro_test", default-features = false }
+proc_macro_test = { version = "0.1", path = "proc_macro_test", default-features = false }
 
 [dev-dependencies]
 tokio = { version = "1.9", features = ["rt", "macros"] }
