@@ -9,25 +9,19 @@ compile_error!("feature async cannot be used with feature permutation_testing");
 
 extern crate proc_macro_test;
 
-extern crate maybe_async;
-/// `maybe_async` automatically removes `async`-related keywords if feature "async_tokio"
-/// is not enabled.
-pub use maybe_async::maybe_async;
+/// `maybe_async::maybe_async` automatically removes `async`-related keywords
+/// if feature "async_tokio" is not enabled.
+pub extern crate maybe_async;
 
-/// `test` needs be used with `run_test` to write tests:
+/// Automatically start async runtime or call `loom::model` if required:
 ///
 /// ```no_run
-/// #[concurrency_toolkit::test(
-///     feature = "is_sync",
-///     async(not(feature = "is_sync"), tokio::test)
-/// )]
-/// async fn test() {
-///     crate::run_test!({
-///         ...
-///     });
+/// #[concurrency_toolkit::test]
+/// fn test() {
+///     // ...
 /// }
 /// ```
-pub use maybe_async::test;
+pub use proc_macro_test::test;
 
 #[cfg(feature = "async_tokio")]
 pub extern crate tokio;
@@ -37,51 +31,3 @@ pub extern crate loom;
 
 pub mod sync;
 pub mod atomic;
-
-#[cfg(not(feature = "permutation_testing"))]
-mod inline {
-    /// run_test needs to be called inside test, like this
-    ///
-    /// ```no_run
-    /// #[concurrency_toolkit::test(
-    ///     feature = "is_sync",
-    ///     async(not(feature = "is_sync"), tokio::test)
-    /// )]
-    /// async fn test() {
-    ///     crate::run_test!({
-    ///         ...
-    ///     });
-    /// }
-    /// ```
-    #[macro_export]
-    macro_rules! run_test {
-        ( { $( $tt:tt )* } ) => {
-            $( $tt )*
-        };
-    }
-}
-
-#[cfg(feature = "permutation_testing")]
-mod inline {
-    /// run_test needs to be called inside test, like this
-    ///
-    /// ```no_run
-    /// #[concurrency_toolkit::test(
-    ///     feature = "is_sync",
-    ///     async(not(feature = "is_sync"), tokio::test)
-    /// )]
-    /// async fn test() {
-    ///     crate::run_test!({
-    ///         ...
-    ///     });
-    /// }
-    /// ```
-    #[macro_export]
-    macro_rules! run_test {
-        ( { $( $tt:tt )* } ) => {
-            $crate::loom::model(
-                || { $( $tt )* }
-            )
-        };
-    }
-}

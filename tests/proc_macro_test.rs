@@ -1,7 +1,6 @@
-extern crate proc_macro_test;
 extern crate concurrency_toolkit;
 
-#[proc_macro_test::test]
+#[concurrency_toolkit::test]
 fn f() {
     println!("Hello, world!");
 }

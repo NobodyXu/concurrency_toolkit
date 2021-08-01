@@ -98,25 +98,3 @@ mod state_sync {
 }
 
 pub use state_sync::*;
-
-#[cfg(test)]
-mod tests {
-    use super::RwLock;
-    use crate::{obtain_read_lock, obtain_write_lock};
-
-    #[crate::test(
-        feature = "is_sync",
-        async(not(feature = "is_sync"), tokio::test)
-    )]
-    async fn test_rwlock() {
-        crate::run_test!({
-            let rwlock = RwLock::new(());
-            {
-                let _guard = obtain_read_lock!(&rwlock).unwrap();
-            }
-            {
-                let _guard = obtain_write_lock!(&rwlock).unwrap();
-            }
-        });
-    }
-}

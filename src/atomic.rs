@@ -18,21 +18,3 @@ pub fn assert_store_ptr<T>(
     #[cfg(not(debug))]
     atomic.store(new_val, release_order);
 }
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use core::ptr::null_mut;
-
-    #[test]
-    fn test_assert_store() {
-        crate::run_test!({
-            let null = null_mut();
-
-            let atomic = AtomicPtr::new(null);
-
-            let mut val = 1;
-            assert_store_ptr(&atomic, null, &mut val, Ordering::AcqRel, Ordering::Release);
-        });
-    }
-}
