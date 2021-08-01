@@ -21,6 +21,11 @@ pub extern crate maybe_async;
 ///     // ...
 /// }
 /// ```
+///
+/// However, unlike `maybe_async::maybe_async`, this proc macro requires the function
+/// to not be declared as `async` due to implementation detail
+/// (`syn` doesn't provides an easy way to parse `async function), but it still can
+/// remove `async`-related keywords just like `maybe_async::maybe_async`.
 pub use proc_macro_test::test;
 
 #[cfg(feature = "async_tokio")]
