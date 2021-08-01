@@ -7,6 +7,8 @@ compile_error!("At most one feature flag can to be enabled");
 #[cfg(all(feature = "async_tokio", feature = "permutation_testing"))]
 compile_error!("feature async cannot be used with feature permutation_testing");
 
+extern crate proc_macro_test;
+
 extern crate maybe_async;
 /// `maybe_async` automatically removes `async`-related keywords if feature "async_tokio"
 /// is not enabled.

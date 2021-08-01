@@ -12,16 +12,19 @@ repository = "https://github.com/NobodyXu/concurrency_toolkit"
 keywords = ["concurrency", "loom", "async", "tokio"]
 categories = ["concurrency", "development-tools::build-utils", "asynchronous"]
 
+[workspace]
+members = ["proc_macro_test"]
 
 [features]
-default = ["maybe-async/is_sync"]
-async_tokio = ["tokio"]
-permutation_testing = ["loom", "maybe-async/is_sync"]
+default = ["maybe-async/is_sync", "proc_macro_test/default"]
+async_tokio = ["tokio", "proc_macro_test/async_tokio"]
+permutation_testing = ["loom", "maybe-async/is_sync", "proc_macro_test/permutation_testing"]
 
 [dependencies]
 tokio = { version = "1.9", features = ["sync"], optional = true }
 loom = { version = "0.5.1", optional = true }
 maybe-async = "0.2.6"
+proc_macro_test = { path = "proc_macro_test", default-features = false }
 
 [dev-dependencies]
 tokio = { version = "1.9", features = ["rt", "macros"] }

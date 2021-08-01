@@ -1,0 +1,22 @@
+[package]
+name = "proc_macro_test"
+authors = ["Jiahao XU <Jiahao_XU@outlook.com>"]
+version = "0.1.0"
+edition = "2018"
+resolver = "2"
+
+license-file = "LICENSE"
+description = "Enable switching between std::sync, tokio::sync and loom::sync"
+repository = "https://github.com/NobodyXu/concurrency_toolkit"
+
+[lib]
+proc-macro = true
+
+[features]
+default = []
+async_tokio = []
+permutation_testing = []
+
+[dependencies]
+syn = { version = "1.0.74", features = ["full"] }
+quote = "1.0.9"
