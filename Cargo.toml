@@ -9,7 +9,7 @@ license = "MIT"
 description = "Easy switching between std::sync, tokio::sync and loom::sync"
 repository = "https://github.com/NobodyXu/concurrency_toolkit"
 
-keywords = ["concurrency", "loom", "async", "tokio"]
+keywords = ["concurrency", "loom", "async", "atomic", "tokio"]
 categories = ["concurrency", "asynchronous"]
 
 [workspace]
