@@ -6,7 +6,7 @@ edition = "2018"
 resolver = "2"
 
 license-file = "LICENSE"
-description = "Enable switching between std::sync, tokio::sync and loom::sync"
+description = "Easy switching between std::sync, tokio::sync and loom::sync"
 repository = "https://github.com/NobodyXu/concurrency_toolkit"
 
 keywords = ["concurrency", "loom", "async", "tokio"]
