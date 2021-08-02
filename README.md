@@ -1,5 +1,7 @@
 # concurrency_toolkit
 
+[![Rust](https://github.com/NobodyXu/concurrency_toolkit/actions/workflows/rust.yml/badge.svg)](https://github.com/NobodyXu/concurrency_toolkit/actions/workflows/rust.yml)
+
 Easy switching between std::sync, tokio::sync and loom::sync
 
 ## Usage
