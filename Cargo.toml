@@ -5,7 +5,7 @@ version = "0.2.4"
 edition = "2018"
 resolver = "2"
 
-license-file = "LICENSE"
+license = "MIT"
 description = "Easy switching between std::sync, tokio::sync and loom::sync"
 repository = "https://github.com/NobodyXu/concurrency_toolkit"
 
