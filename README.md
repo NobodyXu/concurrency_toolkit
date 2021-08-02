@@ -6,6 +6,8 @@
 
 [![crate.io version](https://img.shields.io/crates/v/concurrency_toolkit)](https://crates.io/crates/concurrency_toolkit)
 
+[![docs](https://docs.rs/concurrency_toolkit/badge.svg)](https://docs.rs/concurrency_toolkit)
+
 Easy switching between std::sync, tokio::sync and loom::sync
 
 ## Usage
