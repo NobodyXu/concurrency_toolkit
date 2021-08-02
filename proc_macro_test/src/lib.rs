@@ -36,7 +36,7 @@ pub fn test(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let expanded = quote! {
         #[concurrency_toolkit::maybe_async::test(
-            feature = "is_sync",
+            not(feature = "async_tokio"),
             async(feature = "async_tokio", concurrency_toolkit::tokio::test),
         )]
         # vis async # sig # block
