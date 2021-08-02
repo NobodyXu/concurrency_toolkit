@@ -1,7 +1,7 @@
 [package]
 name = "concurrency_toolkit"
 authors = ["Jiahao XU <Jiahao_XU@outlook.com>"]
-version = "0.2.3"
+version = "0.2.4"
 edition = "2018"
 resolver = "2"
 
