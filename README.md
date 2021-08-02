@@ -16,7 +16,7 @@ It also comes with unified typedef to deal with the difference between these lib
  - `RwLockReadGuard`
  - `RwLockWriteGuard`
  - `LockResult`
- - `TryLockResult
+ - `TryLockResult`
 
 There is also macros to deal with the difference between calling to asynchronous and synchronous function in Rust:
  - `obtain_read_lock!(reference to rwlock)`
