@@ -12,6 +12,9 @@ extern crate proc_macro_test;
 /// `maybe_async::maybe_async` automatically removes `async`-related keywords
 /// if feature "async_tokio" is not enabled.
 pub extern crate maybe_async;
+/// `maybe_async_attr` automatically removes `async`-related keywords
+/// if feature "async_tokio" is not enabled.
+pub use maybe_async::maybe_async as maybe_async_attr;
 
 pub use proc_macro_test::test;
 
