@@ -2,6 +2,8 @@
 
 [![Rust](https://github.com/NobodyXu/concurrency_toolkit/actions/workflows/rust.yml/badge.svg)](https://github.com/NobodyXu/concurrency_toolkit/actions/workflows/rust.yml)
 
+[![crate.io downloads](https://img.shields.io/crates/d/concurrency_toolkit)](https://crates.io/crates/concurrency_toolkit)
+
 Easy switching between std::sync, tokio::sync and loom::sync
 
 ## Usage
