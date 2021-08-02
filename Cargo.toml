@@ -10,7 +10,7 @@ description = "Enable switching between std::sync, tokio::sync and loom::sync"
 repository = "https://github.com/NobodyXu/concurrency_toolkit"
 
 keywords = ["concurrency", "loom", "async", "tokio"]
-categories = ["concurrency", "development-tools::build-utils", "asynchronous"]
+categories = ["concurrency", "asynchronous"]
 
 [workspace]
 members = ["proc_macro_test"]
