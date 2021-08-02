@@ -1,6 +1,6 @@
 use proc_macro::TokenStream;
 use syn::{parse_macro_input, ItemFn};
-use quote::{quote, ToTokens};
+use quote::quote;
 
 /// Automatically start async runtime or call `loom::model` if required:
 ///
@@ -23,18 +23,16 @@ pub fn test(_attr: TokenStream, item: TokenStream) -> TokenStream {
 
     let vis = input.vis;
     let sig = input.sig;
-    let mut block = input.block.to_token_stream();
+    let block = &input.block;
 
     #[cfg(feature = "permutation_testing")]
-    {
-        block = quote! {
-            {
-                concurrency_toolkit::loom::model(
-                    || # block
-                );
-            }
-        };
-    }
+    let block = quote! {
+        {
+            concurrency_toolkit::loom::model(
+                || # block
+            );
+        }
+    };
 
     let expanded = quote! {
         #[concurrency_toolkit::maybe_async::test(
