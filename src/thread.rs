@@ -93,6 +93,10 @@ mod inline {
     /// Spawn a new thread.
     ///
     /// Automatically moves all variable used.
+    ///
+    /// # Warning
+    ///
+    /// __**MUST NOT SPAWN MORE THAN `loom::MAX_THREADS - 1` (currently 3)!**__
     #[macro_export]
     macro_rules! spawn {
         ( { $( $tt:tt )* } ) => {
