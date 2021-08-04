@@ -26,3 +26,4 @@ pub extern crate loom;
 
 pub mod sync;
 pub mod atomic;
+pub mod thread;
