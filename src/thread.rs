@@ -1,6 +1,6 @@
 #[cfg(feature = "default")]
 mod inline {
-    pub use std::thread::{spawn, JoinHandle};
+    pub use std::thread::{spawn, yield_now, JoinHandle};
     pub use std::thread::Result as JoinResult;
 
     #[inline(always)]
@@ -23,11 +23,18 @@ mod inline {
             )
         }
     }
+
+    #[macro_export]
+    macro_rules! yield_now {
+        () => {
+            $crate::thread::yield_now()
+        }
+    }
 }
 
 #[cfg(feature = "async_tokio")]
 mod inline {
-    pub use tokio::task::{self, spawn, JoinHandle};
+    pub use tokio::task::{self, spawn, yield_now, JoinHandle};
     pub type JoinResult<T> = Result<T, task::JoinError>;
 
     #[inline(always)]
@@ -50,11 +57,18 @@ mod inline {
             )
         }
     }
+
+    #[macro_export]
+    macro_rules! yield_now {
+        () => {
+            $crate::thread::yield_now().await
+        }
+    }
 }
 
 #[cfg(feature = "permutation_testing")]
 mod inline {
-    pub use loom::thread::{spawn, JoinHandle};
+    pub use loom::thread::{spawn, yield_now, JoinHandle};
     pub use std::thread::Result as JoinResult;
 
     #[inline(always)]
@@ -75,6 +89,13 @@ mod inline {
             $crate::thread::spawn(
                 move || { $( $tt )* }
             )
+        }
+    }
+
+    #[macro_export]
+    macro_rules! yield_now {
+        () => {
+            $crate::thread::yield_now()
         }
     }
 }
