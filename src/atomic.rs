@@ -15,7 +15,7 @@ pub fn assert_store_ptr<T>(
     release_order: Ordering
 ) {
     #[cfg(debug)]
-    assert!(ptr::eq(_old_val, atomic.swap(new_val, _debug_order)));
+    assert_eq!(_old_val, atomic.swap(new_val, _debug_order));
     #[cfg(not(debug))]
     atomic.store(new_val, release_order);
 }
