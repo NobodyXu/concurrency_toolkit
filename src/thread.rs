@@ -38,6 +38,7 @@ mod inline {
 #[cfg(feature = "async_tokio")]
 mod inline {
     pub use tokio::task::{self, spawn, yield_now, JoinHandle};
+    #[must_use]
     pub type JoinResult<T> = Result<T, task::JoinError>;
 
     #[inline(always)]
