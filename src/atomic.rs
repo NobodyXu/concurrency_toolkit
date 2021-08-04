@@ -6,6 +6,7 @@ pub use loom::sync::atomic::*;
 
 /// atomic store with assertion on old_val equals to the one of atomic
 /// before storing new_val under debug mode.
+#[inline(always)]
 pub fn assert_store_ptr<T>(
     atomic: &AtomicPtr<T>,
     _old_val: *mut T,
