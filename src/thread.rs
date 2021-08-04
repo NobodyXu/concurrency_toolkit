@@ -15,6 +15,9 @@ mod inline {
         }
     }
 
+    /// Spawn a new thread.
+    ///
+    /// Automatically moves all variable used.
     #[macro_export]
     macro_rules! spawn {
         ( { $( $tt:tt )* } ) => {
@@ -49,6 +52,9 @@ mod inline {
         }
     }
 
+    /// Spawn a new thread.
+    ///
+    /// Automatically moves all variable used.
     #[macro_export]
     macro_rules! spawn {
         ( { $( $tt:tt )* } ) => {
@@ -83,6 +89,9 @@ mod inline {
         }
     }
 
+    /// Spawn a new thread.
+    ///
+    /// Automatically moves all variable used.
     #[macro_export]
     macro_rules! spawn {
         ( { $( $tt:tt )* } ) => {
